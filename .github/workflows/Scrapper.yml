@@ -1,0 +1,32 @@
+name: Pulling Latest Ark Holdings
+
+on: 
+  schedule:
+    - cron: '0 */4 * * *'
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-Latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+          architecture: 'x64'
+        run: python -m pip install --upgrade pip
+      - name: Install dependencies 
+        run: pip install -r requirements.txt
+      - name: Scrap ARK Invest Holdings
+        run: python scripts/scrap.py
+      - name: Get DateTime
+        id: date
+        run: echo "::set-output name=datetime::'%Y-%m-%dT%H:%M:%S'"
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v7.0.0
+        with: 
+          author_name: Scheduled Task
+          message: Scheduled updated of holdings on ${{ steps.date.outputs.datetime }}
+    
