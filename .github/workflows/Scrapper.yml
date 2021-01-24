@@ -16,17 +16,16 @@ jobs:
         with:
           python-version: '3.7'
           architecture: 'x64'
-        run: python -m pip install --upgrade pip
       - name: Install dependencies 
         run: pip install -r requirements.txt
       - name: Scrap ARK Invest Holdings
         run: python scripts/scrap.py
       - name: Get DateTime
         id: date
-        run: echo "::set-output name=datetime::'%Y-%m-%dT%H:%M:%S'"
+        run: echo "::set-output name=datetime::$('%Y-%m-%dT%H:%M:%S')"
       - name: Add & Commit
         uses: EndBug/add-and-commit@v7.0.0
         with: 
-          author_name: Scheduled Task
+          author_name: Scheduled Task Runner
           message: Scheduled updated of holdings on ${{ steps.date.outputs.datetime }}
     
