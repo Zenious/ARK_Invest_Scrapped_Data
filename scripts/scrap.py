@@ -26,7 +26,7 @@ def getEtfMd5(ticker):
     return latest_file_md5.hexdigest()
 
 
-def __init__():
+def main():
     for etf_ticker, etf_url in url.items():
         with requests.Session() as s:
             download = s.get(etf_url)
@@ -45,3 +45,5 @@ def __init__():
                 f.write(decoded_content)     
             print("[V] Updated latest {} holdings details".format(etf_ticker))  
     
+if __name__ == "__main__":
+    main()
