@@ -27,5 +27,6 @@ jobs:
         uses: EndBug/add-and-commit@v7.0.0
         with: 
           author_name: Scheduled Task Runner
+          author_email: <>
           message: Scheduled updated of holdings on ${{ steps.date.outputs.datetime }}
     
